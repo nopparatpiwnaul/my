@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เข้าสู่ระบบ</title>
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #78C1E5, #5A9FD6, #3A7D7C);
+            margin: 0;
+            padding: 0;
+        }
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+            box-sizing: border-box;
+        }
+        .login-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        input:focus {
+            border-color: #5A9FD6;
+            outline: none;
+        }
+        button {
+            background: #5A9FD6;
+            color: white;
+            border: none;
+            padding: 14px;
+            width: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background: #3A7D7C;
+        }
+        .login-container p {
+            font-size: 14px;
+            margin-top: 10px;
+            color: #555;
+        }
+        .login-container p a {
+            color: #5A9FD6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .login-container p a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container" id="login-container">
+        <h2>เข้าสู่ระบบ</h2>
+        <input type="text" id="usernameInput" placeholder="กรอกชื่อผู้ใช้">
+        <input type="password" id="passwordInput" placeholder="กรอกรหัสผ่าน">
+        <button onclick="checkLogin()">เข้าสู่ระบบ</button>
+        <p>ยังไม่มีบัญชี? <a href="#">สมัครสมาชิก</a></p>
+    </div>
+
+    <script>
+        // ข้อมูลผู้ใช้และรหัสผ่านที่ถูกต้อง
+        var users = {
+            "1440800241791": "rmu10102540",
+            "1401100036461": "6461",
+            "user3": "password3"
+        };
+
+        function checkLogin() {
+            var inputUsername = document.getElementById("usernameInput").value;
+            var inputPassword = document.getElementById("passwordInput").value;
+
+            // ตรวจสอบว่าผู้ใช้และรหัสผ่านถูกต้องหรือไม่
+            if (users[inputUsername] && users[inputUsername] === inputPassword) {
+                sessionStorage.setItem("username", inputUsername);
+                sessionStorage.setItem("password", inputPassword);
+                window.location.href = "สร้างบาร์โค้ดชำระค่าปรับ.html"; // ไปยังหน้าเว็บหลัก
+            } else {
+                alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง!");
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var savedUsername = sessionStorage.getItem("username");
+            var savedPassword = sessionStorage.getItem("password");
+
+            // ตรวจสอบว่าผู้ใช้ที่ล็อกอินอยู่มีข้อมูลใน sessionStorage หรือไม่
+            if (savedUsername && users[savedUsername] === savedPassword) {
+                window.location.href = "สร้างบาร์โค้ดชำระค่าปรับ.html";
+            }
+        });
+    </script>
+</body>
+</html>
